@@ -19,7 +19,8 @@ if (!fs.existsSync(screenshotDir)) {
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
-            '--disable-blink-features=AutomationControlled'
+            '--disable-blink-features=AutomationControlled',
+            '--host-resolver-rules="MAP qq2.one 23.224.194.157"'
         ],
         executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' // Windows Chrome path
     });
@@ -35,7 +36,7 @@ if (!fs.existsSync(screenshotDir)) {
             console.log(`[${i}] 开始获取`);
 
             try {
-                await page.goto('https://www.qq2.one/user/findpwd.php', {
+                await page.goto('http://www.qq2.one/user/findpwd.php', {
                     waitUntil: 'networkidle2'
                 });
                 
