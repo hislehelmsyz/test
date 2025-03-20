@@ -40,9 +40,13 @@ if (!fs.existsSync(screenshotDir)) {
             });
 
 
-            const qrcodeValue = await page.$eval('#qrimg', (el) => el.getAttribute('qrcode'));
-            console.log(`[${i}] 获取结果: ${qrcodeValue}`);
-
+            try {
+                const qrcodeValue = await page.$eval('#qrimg', (el) => el.getAttribute('qrcode'));
+                console.log(`[${i}] 获取结果: ${qrcodeValue}`);
+            } catch (err) {
+                console.log(`[${i}] 获取结果: 失败`);
+            }
+           
             x++;
             await page.screenshot({ path: path.join(screenshotDir, `screenshot_${i + 1}_${x}.png`), fullPage: true }); 
             await page.close();
@@ -52,7 +56,7 @@ if (!fs.existsSync(screenshotDir)) {
     console.log('浏览器启动完成');
 
 
-    const numberOfBrowsers = 32;
+    const numberOfBrowsers = 16;
     const browserPromises = [];
 
     for (let i = 0; i < numberOfBrowsers; i++) {
