@@ -36,7 +36,7 @@ if (!fs.existsSync(screenshotDir)) {
         });
 
         // Wait for 5 seconds before taking the screenshot
-        await page.waitFor(5000);
+        await await(5000);
 
         // Take a screenshot and save it in the screenshot folder
         await page.screenshot({ path: path.join(screenshotDir, `screenshot_${i + 1}.png`), fullPage: true });
