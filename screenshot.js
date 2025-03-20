@@ -34,13 +34,12 @@ if (!fs.existsSync(screenshotDir)) {
             });
 
             console.log(`[${i}] 开始获取`);
-        
-            await page.goto('https://www.qq1.one/user/findpwd.php', {
-                waitUntil: 'networkidle2'
-            });
-
 
             try {
+                await page.goto('https://www.qq1.one/user/findpwd.php', {
+                    waitUntil: 'networkidle2'
+                });
+                
                 const qrcodeValue = await page.$eval('#qrimg', (el) => el.getAttribute('qrcode'));
                 console.log(`[${i}] 获取结果: ${qrcodeValue}`);
             } catch (err) {
