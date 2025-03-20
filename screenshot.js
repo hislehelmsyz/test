@@ -25,7 +25,6 @@ if (!fs.existsSync(screenshotDir)) {
     });
 
     async function launchBrowserAndCapture(i) {
-        let x = 0;
         while (true) {
             const page = await browser.newPage();
             await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
@@ -36,7 +35,7 @@ if (!fs.existsSync(screenshotDir)) {
             console.log(`[${i}] 开始获取`);
 
             try {
-                await page.goto('https://www.qq1.one/user/findpwd.php', {
+                await page.goto('https://www.qq2.one/user/findpwd.php', {
                     waitUntil: 'networkidle2'
                 });
                 
@@ -46,8 +45,6 @@ if (!fs.existsSync(screenshotDir)) {
                 console.log(`[${i}] 获取结果: 失败`);
             }
            
-            x++;
-            await page.screenshot({ path: path.join(screenshotDir, `screenshot_${i + 1}_${x}.png`), fullPage: true }); 
             await page.close();
         }
     }
