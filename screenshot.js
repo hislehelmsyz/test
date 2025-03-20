@@ -10,21 +10,23 @@ const screenshotDir = path.join(__dirname, 'screenshot');
 if (!fs.existsSync(screenshotDir)) {
     fs.mkdirSync(screenshotDir);
 }
+
+console.log(`执行浏览器启动`);
+
+const browser = await puppeteer.launch({
+    headless: true,
+    args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-blink-features=AutomationControlled'
+    ],
+    executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' // Windows Chrome path
+});
+
+console.log(`浏览器启动完成`);
+
 // Function to launch a browser, capture a screenshot, and fetch QR code
 async function launchBrowserAndCapture(i) {
-    console.log(`[${i}] 执行浏览器启动`);
-
-    const browser = await puppeteer.launch({
-        headless: true,
-        args: [
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
-            '--disable-blink-features=AutomationControlled'
-        ],
-        executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' // Windows Chrome path
-    });
-
-    console.log(`[${i}] 浏览器启动完成`);
 
     let x = 0;
     
@@ -39,7 +41,7 @@ async function launchBrowserAndCapture(i) {
             waitUntil: 'networkidle2'
         });
 
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await wait(1000);
 
         const qrcodeValue = await page.$eval('#qrimg', (el) => el.getAttribute('qrcode'));
 
@@ -53,7 +55,7 @@ async function launchBrowserAndCapture(i) {
 
 // Main function to launch multiple browsers concurrently
 (async () => {
-    const numberOfBrowsers = 8; // Number of browser instances you want to launch
+    const numberOfBrowsers = 16; // Number of browser instances you want to launch
 
     // Create an array of promises for launching browsers
     const browserPromises = [];
