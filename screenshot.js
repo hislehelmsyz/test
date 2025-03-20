@@ -12,7 +12,7 @@ if (!fs.existsSync(screenshotDir)) {
 }
 
 (async () => {
-    const numberOfBrowsers = 32; // Number of browser instances you want to launch
+    const numberOfBrowsers = 16; // Number of browser instances you want to launch
 
     for (let i = 0; i < numberOfBrowsers; i++) {
         const browser = await puppeteer.launch({
@@ -34,6 +34,10 @@ if (!fs.existsSync(screenshotDir)) {
         await page.goto('https://www.qq1.one/user/findpwd.php', {
             waitUntil: 'networkidle2'
         });
+
+        const qrcodeValue = await page.$eval('#qrimg', (el) => el.getAttribute('qrcode'));
+
+        console.log('[获取成功] ', qrcodeValue);
 
         // Wait for 5 seconds before taking the screenshot
         await await(5000);
