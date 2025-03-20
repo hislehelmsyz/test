@@ -13,7 +13,7 @@ if (!fs.existsSync(screenshotDir)) {
 
 console.log(`执行浏览器启动`);
 
-const browser = await puppeteer.launch({
+const browser = puppeteer.launch({
     headless: true,
     args: [
         '--no-sandbox',
@@ -37,6 +37,8 @@ async function launchBrowserAndCapture(i) {
             'Accept-Language': 'zh-CN,zh;q=0.9'
         });
 
+        console.log(`[${i}] 开始获取`);
+        
         await page.goto('https://www.qq1.one/user/findpwd.php', {
             waitUntil: 'networkidle2'
         });
