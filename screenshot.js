@@ -25,8 +25,6 @@ puppeteer.use(StealthPlugin());
         waitUntil: 'networkidle2'
     });
 
-    await page.waitForTimeout(5000);
-
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
     await browser.close();
