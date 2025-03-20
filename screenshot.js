@@ -10,9 +10,6 @@ const screenshotDir = path.join(__dirname, 'screenshot');
 if (!fs.existsSync(screenshotDir)) {
     fs.mkdirSync(screenshotDir);
 }
-const puppeteer = require('puppeteer');
-const path = require('path'); // Make sure to import the path module
-const screenshotDir = 'path_to_your_screenshot_directory'; // Define the directory where screenshots will be saved
 
 // Function to launch a browser, capture a screenshot, and fetch QR code
 async function launchBrowserAndCapture(i) {
