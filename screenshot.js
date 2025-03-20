@@ -12,9 +12,11 @@ if (!fs.existsSync(screenshotDir)) {
 }
 
 (async () => {
-    const numberOfBrowsers = 16; // Number of browser instances you want to launch
+    const numberOfBrowsers = 8; // Number of browser instances you want to launch
 
     for (let i = 0; i < numberOfBrowsers; i++) {
+        console.log(`[${i + 1}] 执行浏览器启动`);
+
         const browser = await puppeteer.launch({
             headless: true,
             args: [
@@ -24,6 +26,9 @@ if (!fs.existsSync(screenshotDir)) {
             ],
             executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' // Windows Chrome path
         });
+
+        console.log(`[${i + 1}] 浏览器启动完成`);
+
 
         const page = await browser.newPage();
         await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
@@ -37,10 +42,7 @@ if (!fs.existsSync(screenshotDir)) {
 
         const qrcodeValue = await page.$eval('#qrimg', (el) => el.getAttribute('qrcode'));
 
-        console.log('[获取成功] ', qrcodeValue);
-
-        // Wait for 5 seconds before taking the screenshot
-        await await(5000);
+        console.log('[${i + 1}] 获取成功 ${qrcodeValue}');
 
         // Take a screenshot and save it in the screenshot folder
         await page.screenshot({ path: path.join(screenshotDir, `screenshot_${i + 1}.png`), fullPage: true });
